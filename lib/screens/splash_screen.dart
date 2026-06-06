@@ -9,30 +9,30 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin { // SingleTickerProviderStateMixin مطلوب لـ AnimationController
-  late AnimationController _animationController; //متحكم الحركة يبدأ ويوقف الأنيميشن
-  late Animation<double> _fadeAnimation; // حركة التلاشي  من 0.0 إلى 1.0
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin { 
+  late AnimationController _animationController; 
+  late Animation<double> _fadeAnimation; // حركة التلاشي
 
   @override
   void initState() {
     super.initState();
     
-    // تهيئة متحكم الحركة 
+    
     _animationController = AnimationController(
-      vsync: this, // ربط المتحكم بالشاشة لتحسين الأداء
+      vsync: this, 
       duration: const Duration(milliseconds: 1500),);  
     
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);    //  حركة التلاشي تبدأ تدريجيا 
     _animationController.forward(); // تظهر العناصر تدريجيا
    
-    Timer(const Duration(seconds: 14), () {  // مؤقت لمدة 7 ثواني ثم الانتقال إلى الصفحة الرئيسية
+    Timer(const Duration(seconds: 14), () {  
       Navigator.pushReplacementNamed(context, '/home'); 
     });
   }
 
   @override
   void dispose() {
-    _animationController.dispose(); // التخلص من متحكم الحركة لتجنب تسرب الذاكرة
+    _animationController.dispose(); 
     super.dispose();
   }
 
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       backgroundColor: Colors.white, 
       body: Stack( 
         children: [
-          Positioned(// دائرة زخرفية في أعلى اليمين (خلفية جمالية تعبر عن الطبيعة)
+          Positioned(
             top: -100, 
             right: -100, 
             child: CircleAvatar(
@@ -53,15 +53,15 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           
           Center(
             child: FadeTransition(
-              opacity: _fadeAnimation, // تطبيق حركة التلاشي على المحتوى بأكمله
+              opacity: _fadeAnimation, // تطبيق  التلاشي على المحتوى كامل
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, 
                 children: [
              
-                  Container(     // حاوية الشعار (دائرية مع ظل)
+                  Container(     //  دائرية مع ظل
                     decoration: BoxDecoration(
                       color: Colors.white, 
-                      shape: BoxShape.circle, // شكل دائري
+                      shape: BoxShape.circle, 
                       boxShadow: [ 
                         BoxShadow(
                           color: const Color(0xFF4E7D5A).withOpacity(0.1), 
@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         'images/logo.png', 
                         width: 260, 
                         height: 260, 
-                        fit: BoxFit.contain, // تجعل الصورة داخل الإطار دون قصها
+                        fit: BoxFit.contain, 
                       ),
                     ),
                   ),
@@ -101,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     ),
                   ),
                   const SizedBox(height: 60), 
-                  const SizedBox(// مؤشر تحميل دائري صغير (للدلالة على أن التطبيق يعمل)
+                  const SizedBox(
                     width: 24,  
                     height: 24, 
                     child: CircularProgressIndicator(

@@ -1,9 +1,9 @@
 
 class UserModel {
-  final int? id; // معرف المستخدم (اختياري لأن المستخدم الجديد لا يملك id بعد)
+  final int? id; 
   final String name, email, password, phone, address, role; 
 
-  // كونستركتور: يتطلب جميع البيانات ماعدا id و role (للـ role قيمة افتراضية 'user')
+
   UserModel({
     this.id, 
     required this.name, 
@@ -11,13 +11,13 @@ class UserModel {
     required this.password, 
     required this.phone, 
     required this.address, 
-    this.role = 'user' // دور المستخدم: 'user' للمستخدم العادي، 'admin' للأدمن
+    this.role = 'user' 
   });
 
   // Factory Constructor: يحول Map قادم من قاعدة البيانات إلى كائن UserModel
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
     id: map['id'], 
-    name: map['name'] ?? '', // إذا كانت القيمة null استخدم سلسلة فارغة
+    name: map['name'] ?? '', 
     email: map['email'] ?? '', 
     password: map['password'] ?? '', 
     phone: map['phone'] ?? '', 
@@ -25,10 +25,9 @@ class UserModel {
     role: map['role'] ?? 'user' 
   );
 
-  // toMap: يحول كائن UserModel إلى Map لإدراجه أو تحديثه في قاعدة البيانات
   Map<String, dynamic> toMap() {
     return {
-      if (id != null) 'id': id, // إذا كان id موجوداً أضفه (يُستخدم في التحديث)
+      if (id != null) 'id': id, 
       'name': name,
       'email': email,
       'password': password,
@@ -37,9 +36,8 @@ class UserModel {
       'role': role,
     };
   }
-  bool get isAdmin => role == 'admin';// Getter: يعيد true إذا كان المستخدم أدمن، false إذا كان مستخدم عادي
+  bool get isAdmin => role == 'admin';
 }
-// كلاس المنتج (ProductModel) - يمثل بيانات المنتج في المتجر
 class ProductModel {
   final int? id; 
   final String name, image, category; 
@@ -52,20 +50,18 @@ class ProductModel {
     required this.price, 
     required this.image, 
     required this.category, 
-    this.isBestSeller = false // افتراضياً ليس من الأكثر مبيعاً
+    this.isBestSeller = false 
   });
 
-  // Factory Constructor: يحول Map من قاعدة البيانات إلى كائن ProductModel
   factory ProductModel.fromMap(Map<String, dynamic> map) => ProductModel(
     id: map['id'], 
     name: map['name'] ?? '', 
-    price: int.tryParse(map['price'].toString()) ?? 0, // تحويل آمن إلى int (إذا فشل التحويل يصبح 0)
+    price: int.tryParse(map['price'].toString()) ?? 0, 
     image: map['image'] ?? '', 
     category: map['category'] ?? '', 
-    isBestSeller: map['isBestSeller'] == 1 || map['isBestSeller'] == true // يقبل 1 أو true
+    isBestSeller: map['isBestSeller'] == 1 || map['isBestSeller'] == true 
   );
 
-  // toMap: يحول كائن ProductModel إلى Map لقاعدة البيانات
   Map<String, dynamic> toMap() {
     return {
       if (id != null) 'id': id,
@@ -77,7 +73,7 @@ class ProductModel {
     };
   }
 }
-// CartItem: يمثل عنصراً واحداً في سلة المشتريات
+// CartItem: 
 class CartItem {
   String name;
   int price, quantity; 
@@ -85,18 +81,17 @@ class CartItem {
     int get itemTotal => price * quantity;
 }
 
-// Cart: كلاس ثابت (static) يدير السلة بأكملها (لا يحتاج إلى إنشاء كائن)
 class Cart {
-  static List<CartItem> items = []; // قائمة عناصر السلة (تخزن في الذاكرة طالما التطبيق مفتوح)
-  static void addItem(String name, int price, int quantity) { // إضافة عنصر إلى السلة أو زيادة كميته إذا كان موجوداً بالفعل
-    int index = items.indexWhere((e) => e.name == name); // البحث عن المنتج في السلة
-    if (index != -1) { // إذا كان المنتج موجوداً
-      items[index].quantity += quantity; // زيادة الكمية
-    } else { // إذا لم يكن موجوداً
-      items.add(CartItem(name: name, price: price, quantity: quantity)); // إضافة عنصر جديد
+  static List<CartItem> items = []; 
+  static void addItem(String name, int price, int quantity) { 
+    int index = items.indexWhere((e) => e.name == name); 
+    if (index != -1) { 
+      items[index].quantity += quantity; 
+    } else { 
+      items.add(CartItem(name: name, price: price, quantity: quantity)); 
     }}
 
-  static void removeItem(int index) => items.removeAt(index); // حذف عنصر حسب الفهرس
-  static void clear() => items.clear(); // تفريغ السلة بالكامل
-  static int getTotal() => items.fold(0, (sum, item) => sum + item.itemTotal);  // حساب الإجمالي الكلي للسلة باستخدام fold (طريقة برمجية وظيفية)
+  static void removeItem(int index) => items.removeAt(index); 
+  static void clear() => items.clear(); 
+  static int getTotal() => items.fold(0, (sum, item) => sum + item.itemTotal);  
 }

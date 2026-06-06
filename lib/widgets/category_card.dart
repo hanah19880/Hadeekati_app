@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//  كلاس لتغليف بيانات القسم
 class CategoryModel {
   final String title; 
   final String image; 
@@ -8,10 +7,9 @@ class CategoryModel {
   CategoryModel({required this.title, required this.image});
 }
 
-//  كارت عرض القسم كمكون مستقل
 class CategoryCard extends StatelessWidget {
-  final CategoryModel category; // بيانات التصنيف المراد عرضها
-  final VoidCallback onTap; // دالة يتم استدعاؤها عند الضغط على الكارت
+  final CategoryModel category; 
+  final VoidCallback onTap; 
 
   const CategoryCard({
     super.key,
@@ -21,7 +19,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector( // يكتشف النقرات (يجعل الكارت قابلاً للضغط)
+    return GestureDetector( 
       onTap: onTap, 
       child: Container(
         width: 90, 

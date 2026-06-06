@@ -2,11 +2,10 @@
 import 'package:flutter/material.dart';
 import '../models/models.dart';
 
-// بطاقة تعرض عنصراً واحداً في سلة المشتريات (اسم المنتج، السعر، الكمية، أزرار التحكم)
 class CartItemCard extends StatelessWidget {
-  final CartItem item; // عنصر السلة (يحتوي على الاسم، السعر، الكمية)
-  final VoidCallback onAdd; // دالة يتم استدعاؤها عند الضغط على زر + (زيادة الكمية)
-  final VoidCallback onRemove; // دالة يتم استدعاؤها عند الضغط على زر - (نقص الكمية أو حذف العنصر)
+  final CartItem item; 
+  final VoidCallback onAdd; 
+  final VoidCallback onRemove; 
 
   const CartItemCard({super.key, required this.item, required this.onAdd, required this.onRemove});
 
@@ -29,7 +28,7 @@ class CartItemCard extends StatelessWidget {
           ),
           const SizedBox(width: 14), 
           
-          Expanded( // عمود يحتوي على اسم المنتج وسعره (يأخذ المساحة المتاحة)
+          Expanded( 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start, 
               children: [

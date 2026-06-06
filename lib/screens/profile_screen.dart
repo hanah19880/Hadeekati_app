@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import '../database/database_helper6.dart';
 import 'login_screen.dart';
-import '../widgets/custom_text_field.dart'; // استيراد حقل الإدخال المخصص
+import '../widgets/custom_text_field.dart'; 
 
-// شاشة الملف الشخصي 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -13,9 +12,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Map<String, dynamic>? user; // بيانات المستخدم الحالي (من قاعدة البيانات)
+  Map<String, dynamic>? user; 
   
-  // متحكمات حقول الإدخال لكل حقل من حقول المستخدم
   final _controllers = {
     'name': TextEditingController(),
     'email': TextEditingController(),
@@ -27,15 +25,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    if (!MyApp.isGuest) loadUser(); // إذا لم يكن المستخدم ضيفاً، قم بتحميل بياناته
+    if (!MyApp.isGuest) loadUser(); 
   }
-  // تحميل بيانات المستخدم من قاعدة البيانات
   void loadUser() async {
-    final data = await DatabaseHelper.getUser(); // جلب بيانات المستخدم الحالي
-    if (data != null) { // إذا تم العثور على بيانات
+    final data = await DatabaseHelper.getUser(); 
+    if (data != null) { 
       setState(() {
-        user = data; // تخزين البيانات
-        // تعبئة حقول الإدخال بالقيم المسترجعة من قاعدة البيانات
+        user = data; 
+
         _controllers['name']!.text = data['name'] ?? ''; 
         _controllers['email']!.text = data['email'] ?? '';
         _controllers['phone']!.text = data['phone'] ?? '';
@@ -54,23 +51,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.transparent, 
         elevation: 0, 
         actions: [ 
-          if (!MyApp.isGuest) // إذا لم يكن المستخدم ضيفا أظهر زر تسجيل الخروج
+          if (!MyApp.isGuest) 
             IconButton(
               icon: const Icon(Icons.logout, color: Color(0xFF4E7D5A)), 
               onPressed: () async {
-                await DatabaseHelper.logout(); // تسجيل الخروج من قاعدة البيانات (مسح الجلسة)
-                MyApp.isGuest = true; // تعيين حالة الضيف
-                MyApp.isAdmin = false; // إلغاء صلاحية الأدمن
-                if (mounted) Navigator.pushReplacementNamed(context, '/login'); // العودة إلى شاشة تسجيل الدخول
+                await DatabaseHelper.logout(); 
+                MyApp.isGuest = true; 
+                MyApp.isAdmin = false; 
+                if (mounted) Navigator.pushReplacementNamed(context, '/login'); 
               },
             ),
         ],
       ),
-      body: MyApp.isGuest ? _buildGuestView() : _buildProfileView(), // إذا كان ضيفا اعرض واجهة الضيف وإلا اعرض واجهة الملف الشخصي
+      body: MyApp.isGuest ? _buildGuestView() : _buildProfileView(), 
     );
   }
 
-  // بناء واجهة الضيف 
   Widget _buildGuestView() => Center(
     child: Padding(
       padding: const EdgeInsets.all(20),
@@ -95,8 +91,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   );
 
   Widget _buildProfileView() => user == null 
-      ? const Center(child: CircularProgressIndicator(color: Color(0xFF4E7D5A))) // إذا كانت البيانات لا زالت تحمل أظهر مؤشر تحميل
-      : SingleChildScrollView( // قابلة للتمرير 
+      ? const Center(child: CircularProgressIndicator(color: Color(0xFF4E7D5A))) 
+      : SingleChildScrollView( 
           padding: const EdgeInsets.all(20), 
           child: Column(
             children: [
@@ -116,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: double.infinity, 
                 child: ElevatedButton(
                   onPressed: () async {
-                    // تحديث بيانات المستخدم في قاعدة البيانات
+
                     await DatabaseHelper.updateUser(user!['id'], { 
                       'name': _controllers['name']!.text,
                       'email': _controllers['email']!.text,

@@ -9,17 +9,15 @@ import 'screens/category_screen.dart';
 import 'screens/admin_panel_screen.dart';
 
 void main() {
-  runApp(MyApp()); // تشغيل التطبيق
+  runApp(MyApp()); 
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // ========== المتغيرات العامة لحالة المستخدم ==========
-  // static تعني أن هذه المتغيرات تابعة للكلاس نفسه، يمكن الوصول إليها من أي مكان دون إنشاء كائن
-  static bool isGuest = true;       // وضع الضيف: يتحكم بعرض واجهة مختلفة للضيف
-  static bool isAdmin = false;      // تحديد إذا كان المستخدم أدمن للوصول للوحة التحكم
-  static String? userEmail;         // تخزين بريد المستخدم للاستخدامات المختلفة
+  static bool isGuest = true;       
+  static bool isAdmin = false;      
+  static String? userEmail;         
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,6 @@ class MyApp extends StatelessWidget {
       title: 'Hadeekati',
       initialRoute: '/',              
       routes: {
-        // تعريف مسارات الشاشات (Routing)
         '/': (context) => SplashScreen(),   
         '/home': (context) => HomeScreen(),  
         '/login': (context) => LoginScreen(), 

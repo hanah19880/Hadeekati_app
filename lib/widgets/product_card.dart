@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/models.dart'; // استيراد كلاس ProductModel من ملف النماذج
+import '../models/models.dart';
 
-// بطاقة عرض المنتج (تظهر في شبكة المنتجات في HomeScreen و CategoryScreen)
 class ProductCard extends StatelessWidget {
-  final ProductModel product; // بيانات المنتج الاسم، السعر، الصورة، التصنيف، حالة BestSeller
-  final bool isAdmin; //  يحدد إذا كان يظهر زر إضافة إلى السلة أم لا
+  final ProductModel product; 
+  final bool isAdmin; 
   final VoidCallback onAddToCart; 
 
   const ProductCard({
@@ -31,25 +30,25 @@ class ProductCard extends StatelessWidget {
       child: Column( 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // قسم الصورة 
+
           Expanded(
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(20)), 
                 image: DecorationImage(
-                  image: AssetImage(product.image), // تحميل الصورة من المسار المحدد في ProductModel
+                  image: AssetImage(product.image), 
                   fit: BoxFit.cover, 
                 ),
               ),
             ),
           ),          
-          // قسم النص (أسفل الصورة)
+
           Padding(
             padding: const EdgeInsets.all(12.0), 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start, 
               children: [
-                Text( // اسم المنتج
+                Text( 
                   product.name,
                   maxLines: 1, 
                   overflow: TextOverflow.ellipsis, 
@@ -72,7 +71,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     
-                    if (!isAdmin)   // زر إضافة إلى السلة (يظهر فقط إذا لم يكن المستخدم أدمن)
+                    if (!isAdmin)   
                       IconButton(
                         constraints: const BoxConstraints(), 
                         padding: EdgeInsets.zero, 
